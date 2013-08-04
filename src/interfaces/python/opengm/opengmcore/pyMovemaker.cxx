@@ -55,7 +55,7 @@ namespace pymovemaker{
     ){
         {
             releaseGIL rgil;
-            movemaker.moveOptimally<ACC>(vis.begin(),vis.end());
+            movemaker.template moveOptimally<ACC>(vis.begin(),vis.end());
         }
     }
 
@@ -91,13 +91,13 @@ namespace pymovemaker{
 
     // SingleVar
     template<class MM,class ACC>
-    inline 
+    inline
     typename MM::LabelType
     moveOptimallySingleVar(
         MM & movemaker,
         const typename MM::IndexType vi
     ){
-        movemaker.moveOptimally<ACC>(&vi,&vi+1);
+        movemaker.template moveOptimally<ACC>(&vi,&vi+1);
         return movemaker.state(vi);
     }
 
@@ -108,7 +108,7 @@ namespace pymovemaker{
         const typename MM::IndexType vi,
         const typename MM::LabelType label
     ){
-        movemaker.move(&vi,&vi+1,&label); 
+        movemaker.move(&vi,&vi+1,&label);
     }
 
 
@@ -129,7 +129,7 @@ void export_movemaker() {
    using namespace boost::python;
    boost::python::numeric::array::set_module_and_type("numpy", "ndarray");
    boost::python::docstring_options docstringOptions(true,true,false);
-   
+
    import_array();
    typedef GM PyGm;
    typedef typename PyGm::SpaceType PySpace;
